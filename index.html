@@ -8,21 +8,25 @@
 </head>
 <body>
     <script>
+
         function getComputerChoice() {  // get random choice of RPS for computer
             const rockPaperScissors = ["rock", "paper", "scissors"];
             const random = rockPaperScissors[Math.floor(Math.random() * rockPaperScissors.length)]; // random select of rock, paper or scissors from rockPaperScissors array
             return random;
         }
 
-        function playRound(playerSelection, computerSelection) {    // takes player choice vs computer choice to determine winner
+        function playRound() {    // takes player choice vs computer choice to determine winner
+            const computerSelection = getComputerChoice();
+            const playerSelection = prompt("Type Rock, Paper or Scissors to play");
             const playerSelectionFinal = playerSelection.toLowerCase();
-
             if (playerSelectionFinal === "rock") {  
                 if (computerSelection === "paper") {
                     console.log("You lose! Paper beats rock.");
+                    return computerWins = computerWins + 1;
                 }
                 else if (computerSelection === "scissors") {
                     console.log("You win! Rock beats scissors.");
+                    return playerWins = playerWins + 1;
                 }
                 else {
                     console.log("It's a tie! You both chose rock.");
@@ -31,9 +35,11 @@
             else if (playerSelectionFinal === "paper") {
                 if (computerSelection === "scissors") {
                     console.log("You lose! Scissors beats paper.");
+                    return computerWins = computerWins + 1;
                 }
                 else if (computerSelection === "rock") {
                     console.log("You win! Paper beats rock");
+                    return playerWins = playerWins + 1;
                 }
                 else {
                 console.log("It's a tie! You both chose paper.");
@@ -42,9 +48,11 @@
             else if (playerSelectionFinal === "scissors") {
                 if (computerSelection === "rock") {
                     console.log("You lose! Rock beats scissors.");
+                    return computerWins = computerWins + 1;
                 }
                 else if (computerSelection === "paper") {
                     console.log("You win! Scissors beats paper");
+                    return playerWins = playerWins + 1;
                 }
                 else {
                     console.log("It's a tie! You both chose scissors.");
@@ -54,18 +62,27 @@
                 console.log("Error. Please try again.");
             }
         }
+        
+
+        let playerWins = 0;
+        let computerWins = 0;
+        game();
 
         function game() {
-
+            for (let i = 0; i < 5; i++) {
+                playRound();
+                console.log("You: "+playerWins, "Computer: "+computerWins);
+            }
+            if (playerWins > computerWins) {
+                console.log("You've won the match with a score of " + playerWins + " to " + computerWins);
+            }
+            else if (computerWins > playerWins) {
+                console.log("You've lost the match with a score of " + playerWins + " to " + computerWins);
+            }
+            else {
+                console.log("The match is a tie.");
+            }
         }
-        
-        const playerSelection = prompt("Type Rock, Paper or Scissors to play");
-        const computerSelection = getComputerChoice();
-        console.log(playRound(playerSelection, computerSelection));
-
-        
-
-
 
     </script>
 </body>
