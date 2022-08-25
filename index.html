@@ -8,13 +8,57 @@
 </head>
 <body>
     <script>
-        function getComputerChoice() { // get random choice of RPS for computer
-            const rockPaperScissors = ["Rock", "Paper", "Scissors"];
-            const compChoice = rockPaperScissors[Math.floor(Math.random() * rockPaperScissors.length)]; // random select of rock, paper or scissors from rockPaperScissors array
-            return compChoice;
+        function getComputerChoice() {  // get random choice of RPS for computer
+            const rockPaperScissors = ["rock", "paper", "scissors"];
+            const random = rockPaperScissors[Math.floor(Math.random() * rockPaperScissors.length)]; // random select of rock, paper or scissors from rockPaperScissors array
+            return random;
         }
 
-        console.log(getComputerChoice());
+        function playRound(playerSelection, computerSelection) {    // takes player choice vs computer choice to determine winner
+            const playerSelectionFinal = playerSelection.toLowerCase();
+
+            if (playerSelectionFinal === "rock") {  
+                if (computerSelection === "paper") {
+                    console.log("You lose! " + computerSelection + " beats " + playerSelectionFinal);
+                }
+                else if (computerSelection === "scissors") {
+                    console.log("You win! " + playerSelectionFinal + " beats " + computerSelection);
+                }
+                else {
+                    console.log("It's a tie! You both chose rock.");
+            }
+            }
+            else if (playerSelectionFinal === "paper") {
+                if (computerSelection === "scissors") {
+                    console.log("You lose! " + computerSelection + " beats " + playerSelectionFinal);
+            }
+                else if (computerSelection === "paper") {
+                    console.log("You win! " + playerSelectionFinal + " beats " + computerSelection);
+                }
+                else {
+                console.log("It's a tie! You both chose paper.");
+            }
+            }
+            else if (playerSelectionFinal === "scissors") {
+                if (computerSelection === "rock") {
+                    console.log("You lose! " + computerSelection + " beats " + playerSelectionFinal);
+            }
+                else if (computerSelection === "paper") {
+                    console.log("You win! " + playerSelectionFinal + " beats " + computerSelection);
+                }
+                else {
+                    console.log("It's a tie! You both chose scissors.");
+            }
+        }
+    }
+        
+        const playerSelection = "rock";
+        const computerSelection = getComputerChoice();
+        console.log(playRound(playerSelection, computerSelection));
+
+        
+
+
 
     </script>
 </body>
