@@ -15,9 +15,9 @@
             return random;
         }
 
-        function playRound() {    // takes player choice vs computer choice to determine winner
-            const computerSelection = getComputerChoice();
-            const playerSelection = prompt("Type Rock, Paper or Scissors to play");
+        function playRound() {    // takes player choice via prompt vs random comp choice to determine winner
+            const computerSelection = getComputerChoice();  // get random comp choice
+            const playerSelection = prompt("Type Rock, Paper or Scissors to play"); // prompt player for choice
             const playerSelectionFinal = playerSelection.toLowerCase();
             if (playerSelectionFinal === "rock") {  
                 if (computerSelection === "paper") {
@@ -68,8 +68,8 @@
         let computerWins = 0;
         game();
 
-        function game() {
-            for (let i = 0; i < 5; i++) {
+        function game() {   // plays 5 individual games of RPS via loop, announce winner
+            for (let i = 0; i < 5; i++) {  
                 playRound();
                 console.log("You: "+playerWins, "Computer: "+computerWins);
             }
