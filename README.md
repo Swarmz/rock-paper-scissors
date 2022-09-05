@@ -1,2 +1,2 @@
 # rock-paper-scissors
-plays 5 rock paper scissor games via the console
+plays a BO5 rock paper scissor games with a simple GUI
