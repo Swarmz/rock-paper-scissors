@@ -5,8 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class = "container">
+        <button class="rpsSelection" type="button" id="rock">Rock</button>
+        <button class="rpsSelection" type="button" id="paper">Paper</button>
+        <button class="rpsSelection" type="button" id="scissors">Scissors</button>
+        <div id="results">Click to Play!</div>
+        <div class="scoreKeeper">
+            <p id="playerScore">YOU: 0</p>
+            <p id="computerScore">COMPUTER: 0</p>
+        </div>
+    </div>
+
     <script>
 
         function getComputerChoice() {  // get random choice of RPS for computer
@@ -15,63 +27,86 @@
             return random;
         }
 
-        function playRound() {    // takes player choice via prompt vs random comp choice to determine winner
-            const computerSelection = getComputerChoice();  // get random comp choice
-            const playerSelection = prompt("Type Rock, Paper or Scissors to play"); // prompt player for choice
-            const playerSelectionFinal = playerSelection.toLowerCase();
-            if (playerSelectionFinal === "rock") {  
-                if (computerSelection === "paper") {
-                    console.log("You lose! Paper beats rock.");
-                    return computerWins = computerWins + 1;
-                }
-                else if (computerSelection === "scissors") {
-                    console.log("You win! Rock beats scissors.");
-                    return playerWins = playerWins + 1;
-                }
-                else {
-                    console.log("It's a tie! You both chose rock.");
-                }
-            }
-            else if (playerSelectionFinal === "paper") {
-                if (computerSelection === "scissors") {
-                    console.log("You lose! Scissors beats paper.");
-                    return computerWins = computerWins + 1;
-                }
-                else if (computerSelection === "rock") {
-                    console.log("You win! Paper beats rock");
-                    return playerWins = playerWins + 1;
-                }
-                else {
-                console.log("It's a tie! You both chose paper.");
-                }
-            }
-            else if (playerSelectionFinal === "scissors") {
-                if (computerSelection === "rock") {
-                    console.log("You lose! Rock beats scissors.");
-                    return computerWins = computerWins + 1;
-                }
-                else if (computerSelection === "paper") {
-                    console.log("You win! Scissors beats paper");
-                    return playerWins = playerWins + 1;
-                }
-                else {
-                    console.log("It's a tie! You both chose scissors.");
-                }
-            }
-            else {
-                console.log("Error. Please try again.");
-            }
-        }
-        
-
         let playerWins = 0;
         let computerWins = 0;
-        game();
 
-        function game() {   // plays 5 individual games of RPS via loop, announce winner
+       function getScore() {
+            document.getElementById("computerScore").textContent = "COMPUTER: " + computerWins;
+            document.getElementById("playerScore").textContent = "YOU: " + playerWins;
+        }
+        
+        function playRound(playerSelection) {    // generates player choice via prompt vs random comp choice to determine winner
+            const computerSelection = getComputerChoice();  // get random comp choice
+            if (playerWins === 5) {
+                document.getElementById("results").textContent = "YOU HAVE WON THE MATCH " + playerWins +
+                " TO " + computerWins;
+            } else if (computerWins === 5) {
+                document.getElementById("results").textContent = "YOU HAVE LOST THE MATCH " + computerWins +
+                " TO " + playerWins;
+            } else {
+                if (playerSelection === "rock") {  
+                    if (computerSelection === "paper") {
+                        document.getElementById("results").textContent = "You lose! Paper beats rock.";
+                        return computerWins += 1, getScore(); 
+                    }
+                    else if (computerSelection === "scissors") {
+                        document.getElementById("results").textContent = "You win! Rock beats scissors.";
+                        return playerWins += 1, getScore();
+                    }
+                    else {
+                        document.getElementById("results").textContent = "It's a tie! You both chose rock.";
+                    }
+                }
+                else if (playerSelection === "paper") {
+                    if (computerSelection === "scissors") {
+                        document.getElementById("results").textContent = "You lose! Scissors beats paper.";
+                        return computerWins += 1, getScore();
+                    }
+                    else if (computerSelection === "rock") {
+                        document.getElementById("results").textContent = "You win! Paper beats rock";
+                        return playerWins += 1, getScore();
+                    }
+                    else {
+                        document.getElementById("results").textContent = "It's a tie! You both chose paper.";
+                    }
+                }
+                else if (playerSelection === "scissors") {
+                    if (computerSelection === "rock") {
+                        document.getElementById("results").textContent = "You lose! Rock beats scissors.";
+                        return computerWins += 1, getScore();
+                        
+                    }
+                    else if (computerSelection === "paper") {
+                        document.getElementById("results").textContent = "You win! Scissors beats paper";
+                        return playerWins += 1, getScore();
+                    }
+                    else {
+                        document.getElementById("results").textContent = "It's a tie! You both chose scissors.";
+                    }
+                }
+                else {
+                    document.getElementById("results").textContent = "Error. Please try again.";
+                }
+            }
+        }
+
+
+
+        document.getElementById("rock").addEventListener("click", function(){ playRound("rock"); });
+        document.getElementById("paper").addEventListener("click", function(){ playRound("paper"); });
+        document.getElementById("scissors").addEventListener("click", function(){ playRound("scissors"); });
+
+
+        
+        
+    
+        
+        // old game function
+        /* function game() {   // plays 5 individual games of RPS via loop, announce winner
             for (let i = 0; i < 5; i++) {  
                 playRound();
-                console.log("You: "+playerWins, "Computer: "+computerWins);
+                document.getElementById("computerScore").textContent = "COMPUTER: " + computerWins;
+                document.getElementById("playerScore").textContent = "YOU: " + playerWins;
             }
             if (playerWins > computerWins) {
                 console.log("You've won the match with a score of " + playerWins + " to " + computerWins);
@@ -82,8 +117,10 @@
             else {
                 console.log("The match is a tie.");
             }
-        }
+        } */
 
     </script>
+
+
 </body>
 </html>
