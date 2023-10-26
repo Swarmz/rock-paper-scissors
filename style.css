@@ -1,27 +1,62 @@
-body {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+.rps-main {
+    background-color: black;
+    color: white;
+    flex: 1;
+    font-family: 'Courier New', Courier, monospace;
 }
 
+.rps-container {
+    font-size:  24px;
+    
+}
+
+.rps-title {
+    text-align: center;
+    padding: 24px;
+    border-bottom: solid white 3px;
+}
+
+.rps-button-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    padding: 24px;
+}
 
 .rpsSelection {
-    padding: 25px;
-    margin: 5px;  
+    all: unset;
+    margin: 24px;
+    border: none;
+    padding: 0px;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 150px;
+    height: 150px;
 }
 
+.rps-icons {
+    width: 150px;
+}
 
-div {
-    border: 1px solid grey;
+.rpsSelection:hover, .rpsSelection:active {
+    box-shadow: 0px 0px 35px yellow;    
+}
+
+.scorePoints, .scoreNames {
+    display: flex;
+    flex-flow: row;
     text-align: center;
     padding: 10px;
-    margin: 10px;
+    justify-content: center;   
 }
 
-.scoreKeeper {
-    display: flex;
-    justify-content: space-between;
+#playerName, #computerName, #computerScore, #playerScore {
+    margin: 24px;
+    font-size: 48px;
+    width: 15rem;
+}
+
+#results {
+    text-align: center;
+    padding: 36px;
 }

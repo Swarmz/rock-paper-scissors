@@ -8,17 +8,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class = "container">
-        <button class="rpsSelection" type="button" id="rock">Rock</button>
-        <button class="rpsSelection" type="button" id="paper">Paper</button>
-        <button class="rpsSelection" type="button" id="scissors">Scissors</button>
-        <div id="results">Click to Play!</div>
-        <div class="scoreKeeper">
-            <p id="playerScore">YOU: 0</p>
-            <p id="computerScore">COMPUTER: 0</p>
+    <div class="rps-main">
+        <h1 class="rps-title">Rock Paper Scissors</h1>
+        <div class="rps-container">
+            <div id="results">&darr; Click to Play! &darr;</div>
+            <div class="rps-button-container">
+                <button class="rpsSelection" type="button" id="rock">
+                    <img class="rps-icons" src="./img/rock.png" alt="rock">
+                </button>
+                <button class="rpsSelection" type="button" id="paper">
+                    <img class="rps-icons" src="./img/paper.png" alt="paper">
+                </button>
+                <button class="rpsSelection" type="button" id="scissors">
+                    <img class="rps-icons" src="./img/scissors.png" alt="paper">
+                </button>
+            </div>
+            
+            <div class="scoreNames">
+                <p id="playerName">YOU</p>
+                <p id="computerName">COMPUTER</p>
+            </div>
+            <div class="scorePoints">
+                <p id="playerScore">0</p>
+                <p id="computerScore">0</p>
+            </div>
         </div>
     </div>
-
+                
     <script>
 
         function getComputerChoice() {  // get random choice of RPS for computer
@@ -30,20 +46,13 @@
         let playerWins = 0;
         let computerWins = 0;
 
-       function getScore() {
-            document.getElementById("computerScore").textContent = "COMPUTER: " + computerWins;
-            document.getElementById("playerScore").textContent = "YOU: " + playerWins;
+        function getScore() {
+            document.getElementById("computerScore").textContent = computerWins;
+            document.getElementById("playerScore").textContent = playerWins;
         }
         
         function playRound(playerSelection) {    // generates player choice via prompt vs random comp choice to determine winner
             const computerSelection = getComputerChoice();  // get random comp choice
-            if (playerWins === 5) {
-                document.getElementById("results").textContent = "YOU HAVE WON THE MATCH " + playerWins +
-                " TO " + computerWins;
-            } else if (computerWins === 5) {
-                document.getElementById("results").textContent = "YOU HAVE LOST THE MATCH " + computerWins +
-                " TO " + playerWins;
-            } else {
                 if (playerSelection === "rock") {  
                     if (computerSelection === "paper") {
                         document.getElementById("results").textContent = "You lose! Paper beats rock.";
@@ -88,36 +97,43 @@
                     document.getElementById("results").textContent = "Error. Please try again.";
                 }
             }
+        
+        function winner() {
+            if (playerWins > computerWins) {
+                document.getElementById("results").textContent = "YOU HAVE WON THE MATCH " + playerWins +
+                    " TO " + computerWins;
+            } else {
+                document.getElementById("results").textContent = "YOU HAVE LOST THE MATCH " + computerWins +
+                    " TO " + playerWins;
+            }
+            setTimeout(scoreReset, 3000);
+        }
+        
+        function scoreReset() {
+            playerWins = 0;
+            computerWins = 0;
+            document.getElementById("computerScore").textContent = computerWins;
+            document.getElementById("playerScore").textContent = playerWins;
+            document.getElementById("results").textContent = "Play again!"
         }
 
+        // to do
+        // function replay() {
+        //      display pop up
+        //      if (retryButton = true) {
+        //          close pop up
+        //          id="results">&darr; Click to Play! &darr;
+        //          playerWins = 0;
+        //          computerWins = 0;
+            
 
 
-        document.getElementById("rock").addEventListener("click", function(){ playRound("rock"); });
-        document.getElementById("paper").addEventListener("click", function(){ playRound("paper"); });
-        document.getElementById("scissors").addEventListener("click", function(){ playRound("scissors"); });
+        //     }
+        // }
 
-
-        
-        
-    
-        
-        // old game function
-        /* function game() {   // plays 5 individual games of RPS via loop, announce winner
-            for (let i = 0; i < 5; i++) {  
-                playRound();
-                document.getElementById("computerScore").textContent = "COMPUTER: " + computerWins;
-                document.getElementById("playerScore").textContent = "YOU: " + playerWins;
-            }
-            if (playerWins > computerWins) {
-                console.log("You've won the match with a score of " + playerWins + " to " + computerWins);
-            }
-            else if (computerWins > playerWins) {
-                console.log("You've lost the match with a score of " + playerWins + " to " + computerWins);
-            }
-            else {
-                console.log("The match is a tie.");
-            }
-        } */
+        document.getElementById("rock").addEventListener("click", function(){ playRound("rock"); if(playerWins === 5 || computerWins === 5) {winner();} });
+        document.getElementById("paper").addEventListener("click", function(){ playRound("paper"); if(playerWins === 5 || computerWins === 5) {winner();}  });
+        document.getElementById("scissors").addEventListener("click", function(){ playRound("scissors"); if(playerWins === 5 || computerWins === 5) {winner();}  });
 
     </script>
 
