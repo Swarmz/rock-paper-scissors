@@ -6,6 +6,7 @@
 }
 
 .rps-container {
+    margin-top: 36px;
     font-size:  24px;
 }
 
@@ -64,8 +65,6 @@
     align-content: center;
 }
 
-
-
 #playerName, #computerName, #computerScore, #playerScore {
     margin: 24px;
     font-size: 48px;
@@ -86,7 +85,23 @@
     pointer-events: auto;
 }
 
-.reset {
-    content: none;
-    background-color: #faea04;
+.hightlight-win {
+    border: 8px solid green;
 }
+
+.hightlight-lose {
+    border: 8px solid red;
+}
+
+.score-increase {
+    animation-name: score-increase;
+    animation-duration: 1.5s;
+}
+
+@keyframes score-increase {
+    from {scale: 1}
+    to {scale: 1.5}
+    from {scale: 1.5}
+    to {scale: 1.0}
+}
+

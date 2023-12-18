@@ -51,12 +51,24 @@
         let playerWins = 0;
         let computerWins = 0;
 
+        let highlightWin = function() {
+            computerSelectionImage.classList.remove(...computerSelectionImage.classList);
+            computerSelectionImage.classList.add("highlight-win");
+        }
+
+        // computer selection animation
+        let animateOnSelection = function() {
+            computerSelectionImage.classList.remove("score-increase");
+            computerSelectionImage.offsetHeight; // Repaint DOM in order to replay animation.
+            computerSelectionImage.classList.add("score-increase");
+}
         function getScore() {
             document.getElementById("computerScore").textContent = computerWins;
             document.getElementById("playerScore").textContent = playerWins;
         }
         
-        function playRound(playerSelection) {    // generates player choice via prompt vs random comp choice to determine winner
+        function playRound(playerSelection) {    // generates player choice via prompt vs random comp choice to determine winn
+            animateOnSelection();
             let computerSelection = getComputerChoice();
             if (playerSelection === "rock") {  
                 if (computerSelection === "paper") {
@@ -132,7 +144,6 @@
             computerWins = 0;
             document.getElementById("computerScore").textContent = computerWins;
             document.getElementById("playerScore").textContent = playerWins;
-            computerSelectionImage.classList.add("reset");
             document.getElementById("results").textContent = "↑ Click to play again! ↑"
             document.getElementById('rock').classList.add('enable-button');
             document.getElementById('paper').classList.add('enable-button');
