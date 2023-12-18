@@ -47,6 +47,7 @@
 
 .rps-icons {
     width: 150px;
+    box-sizing: border-box;
 }
 
 .rpsSelection:hover, .rpsSelection:active {
@@ -85,12 +86,16 @@
     pointer-events: auto;
 }
 
-.hightlight-win {
-    border: 8px solid green;
+.highlight-win {
+    outline: 8px solid green;
 }
 
-.hightlight-lose {
-    border: 8px solid red;
+.highlight-loss {
+    outline: 8px solid red;
+}
+
+.highlight-tie {
+    outline: 8px solid white;
 }
 
 .score-increase {
