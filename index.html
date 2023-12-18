@@ -25,13 +25,13 @@
                 <p id="playerName">YOU</p>
             </div>
             <div class="rps-button-container">
-                <button class="rpsSelection" type="button" >
+                <button class="rpsSelection" id="rock-button" type="button">
                     <img class="rps-icons" id="rock" src="./img/rock.png" alt="rock">
                 </button>
-                <button class="rpsSelection" type="button" >
+                <button class="rpsSelection" id="paper-button" type="button">
                     <img class="rps-icons" id="paper" src="./img/paper.png" alt="paper">
                 </button>
-                <button class="rpsSelection" type="button" >
+                <button class="rpsSelection" id="scissors-button" type="button">
                     <img class="rps-icons" id="scissors" src="./img/scissors.png" alt="paper">
                 </button>
             </div>
@@ -39,7 +39,6 @@
     </div>
                 
     <script>
-
         function getComputerChoice() {  // get random choice of RPS for computer
             const rockPaperScissors = ["rock", "paper", "scissors"];
             const random = rockPaperScissors[Math.floor(Math.random() * rockPaperScissors.length)]; // random select of rock, paper or scissors from rockPaperScissors array
@@ -155,13 +154,13 @@
                 document.getElementById("results").textContent = "YOU HAVE LOST THE MATCH " + computerWins +
                     " TO " + playerWins;
             }
-            document.getElementById('rock').classList.add('disable-button');
-            document.getElementById('paper').classList.add('disable-button');
-            document.getElementById('scissors').classList.add('disable-button');
+            togglePointerEvent();
+            removeOnClickFunctionality();
             setTimeout(scoreReset, 5000);
         }
         
         function scoreReset() {
+            addOnClickFunctionality ();
             computerSelectionImage.src = "img/empty.png";
             eraseHighlight();
             playerWins = 0;
@@ -169,9 +168,7 @@
             document.getElementById("computerScore").textContent = computerWins;
             document.getElementById("playerScore").textContent = playerWins;
             document.getElementById("results").textContent = "↑ Click to play again! ↑"
-            document.getElementById('rock').classList.add('enable-button');
-            document.getElementById('paper').classList.add('enable-button');
-            document.getElementById('scissors').classList.add('enable-button');
+            togglePointerEvent();
         }
 
         // to do
@@ -187,10 +184,30 @@
 
         //     }
         // }
+        
+        function togglePointerEvent() {
+            let rock = document.getElementById("rock-button");
+            rock.classList.toggle("disable-button");
+            let paper = document.getElementById("paper-button");
+            paper.classList.toggle("disable-button");
+            let scissors = document.getElementById("scissors-button");
+            scissors.classList.toggle("disable-button");
+}    
 
-        document.getElementById("rock").addEventListener("click", function(){ playRound("rock"); if(playerWins === 5 || computerWins === 5) {winner();} });
-        document.getElementById("paper").addEventListener("click", function(){ playRound("paper"); if(playerWins === 5 || computerWins === 5) {winner();}  });
-        document.getElementById("scissors").addEventListener("click", function(){ playRound("scissors"); if(playerWins === 5 || computerWins === 5) {winner();}  });
+        let addOnClickFunctionality = function() {
+            document.getElementById("rock").onclick = function(){ playRound('rock'); if(playerWins === 5 || computerWins === 5) {winner();} };
+            document.getElementById("paper").onclick = function(){ playRound('paper'); if(playerWins === 5 || computerWins === 5) {winner();} };
+            document.getElementById("scissors").onclick = function(){ playRound('scissors'); if(playerWins === 5 || computerWins === 5) {winner();} };
+        }
+
+        let removeOnClickFunctionality = function() {
+            document.getElementById('rock').onclick='';
+            document.getElementById('paper').onclick='';
+            document.getElementById('scissors').onclick='';
+        }
+
+        addOnClickFunctionality();
+        
 
     </script>
 
