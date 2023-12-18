@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="rps-main">
         <h1 class="rps-title">Rock Paper Scissors</h1>
         <div class="rps-container">
-            <div id="results">&darr; Click to Play! &darr;</div>
+            <div id="computer-selection">
+                <img id="computer-selection-img" src="img/empty.png" alt="empty yellow square">
+            </div>
+            <div class="scoreNames">
+                <p id="computerName">COMPUTER</p>
+            </div>
+            <div class="scorePoints">
+                <p id="computerScore">0</p>
+                <p id="playerScore">0</p>
+            </div>
+            <div class="scoreNames">
+                <p id="playerName">YOU</p>
+            </div>
             <div class="rps-button-container">
                 <button class="rpsSelection" type="button" id="rock">
                     <img class="rps-icons" src="./img/rock.png" alt="rock">
@@ -23,16 +35,7 @@
                     <img class="rps-icons" src="./img/scissors.png" alt="paper">
                 </button>
             </div>
-            
-            <div class="scoreNames">
-                <p id="playerName">YOU</p>
-                <p id="computerName">COMPUTER</p>
-            </div>
-            <div class="scorePoints">
-                <p id="playerScore">0</p>
-                <p id="computerScore">0</p>
-            </div>
-        </div>
+            <div id="results">&uarr; Click to Play! &uarr;</div>  
     </div>
                 
     <script>
@@ -43,6 +46,8 @@
             return random;
         }
 
+        
+        let computerSelectionImage = document.getElementById("computer-selection-img");
         let playerWins = 0;
         let computerWins = 0;
 
@@ -52,50 +57,59 @@
         }
         
         function playRound(playerSelection) {    // generates player choice via prompt vs random comp choice to determine winner
-            const computerSelection = getComputerChoice();  // get random comp choice
-                if (playerSelection === "rock") {  
-                    if (computerSelection === "paper") {
-                        document.getElementById("results").textContent = "You lose! Paper beats rock.";
-                        return computerWins += 1, getScore(); 
-                    }
-                    else if (computerSelection === "scissors") {
-                        document.getElementById("results").textContent = "You win! Rock beats scissors.";
-                        return playerWins += 1, getScore();
-                    }
-                    else {
-                        document.getElementById("results").textContent = "It's a tie! You both chose rock.";
-                    }
+            let computerSelection = getComputerChoice();
+            if (playerSelection === "rock") {  
+                if (computerSelection === "paper") {
+                    computerSelectionImage.src = "img/paper.png";
+                    document.getElementById("results").textContent = "You lose! Paper beats rock.";
+                    return computerWins += 1, getScore(); 
                 }
-                else if (playerSelection === "paper") {
-                    if (computerSelection === "scissors") {
-                        document.getElementById("results").textContent = "You lose! Scissors beats paper.";
-                        return computerWins += 1, getScore();
-                    }
-                    else if (computerSelection === "rock") {
-                        document.getElementById("results").textContent = "You win! Paper beats rock";
-                        return playerWins += 1, getScore();
-                    }
-                    else {
-                        document.getElementById("results").textContent = "It's a tie! You both chose paper.";
-                    }
-                }
-                else if (playerSelection === "scissors") {
-                    if (computerSelection === "rock") {
-                        document.getElementById("results").textContent = "You lose! Rock beats scissors.";
-                        return computerWins += 1, getScore();
-                        
-                    }
-                    else if (computerSelection === "paper") {
-                        document.getElementById("results").textContent = "You win! Scissors beats paper";
-                        return playerWins += 1, getScore();
-                    }
-                    else {
-                        document.getElementById("results").textContent = "It's a tie! You both chose scissors.";
-                    }
+                else if (computerSelection === "scissors") {
+                    computerSelectionImage.src = "img/scissors.png";
+                    document.getElementById("results").textContent = "You win! Rock beats scissors.";
+                    return playerWins += 1, getScore();
                 }
                 else {
-                    document.getElementById("results").textContent = "Error. Please try again.";
+                    computerSelectionImage.src = "img/rock.png";
+                    document.getElementById("results").textContent = "It's a tie! You both chose rock.";
                 }
+            }
+            else if (playerSelection === "paper") {
+                if (computerSelection === "scissors") {
+                    computerSelectionImage.src = "img/scissors.png";
+                    document.getElementById("results").textContent = "You lose! Scissors beats paper.";
+                    return computerWins += 1, getScore();
+                }
+                else if (computerSelection === "rock") {
+                    computerSelectionImage.src = "img/rock.png";
+                    document.getElementById("results").textContent = "You win! Paper beats rock";
+                    return playerWins += 1, getScore();
+                }
+                else {
+                    computerSelectionImage.src = "img/paper.png";
+                    document.getElementById("results").textContent = "It's a tie! You both chose paper.";
+                }
+            }
+            else if (playerSelection === "scissors") {
+                if (computerSelection === "rock") {
+                    computerSelectionImage.src = "img/rock.png";
+                    document.getElementById("results").textContent = "You lose! Rock beats scissors.";
+                    return computerWins += 1, getScore();
+                    
+                }
+                else if (computerSelection === "paper") {
+                    computerSelectionImage.src = "img/paper.png";
+                    document.getElementById("results").textContent = "You win! Scissors beats paper";
+                    return playerWins += 1, getScore();
+                }
+                else {
+                    computerSelectionImage.src = "img/scissors.png";
+                    document.getElementById("results").textContent = "It's a tie! You both chose scissors.";
+                }
+            }
+            else {
+                document.getElementById("results").textContent = "Error. Please try again.";
+            }
             }
         
         function winner() {
@@ -106,15 +120,23 @@
                 document.getElementById("results").textContent = "YOU HAVE LOST THE MATCH " + computerWins +
                     " TO " + playerWins;
             }
-            setTimeout(scoreReset, 3000);
+            document.getElementById('rock').classList.add('disable-button');
+            document.getElementById('paper').classList.add('disable-button');
+            document.getElementById('scissors').classList.add('disable-button');
+            setTimeout(scoreReset, 5000);
         }
         
         function scoreReset() {
+            computerSelectionImage.src = "img/empty.png";
             playerWins = 0;
             computerWins = 0;
             document.getElementById("computerScore").textContent = computerWins;
             document.getElementById("playerScore").textContent = playerWins;
-            document.getElementById("results").textContent = "Play again!"
+            computerSelectionImage.classList.add("reset");
+            document.getElementById("results").textContent = "↑ Click to play again! ↑"
+            document.getElementById('rock').classList.add('enable-button');
+            document.getElementById('paper').classList.add('enable-button');
+            document.getElementById('scissors').classList.add('enable-button');
         }
 
         // to do
